@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <div className={styles.container}>
         <h1>Hello World!</h1>
-        <div className="d-flex justify-content-around mt-6">
+        <div className="mt-4 d-flex justify-content-around">
           <Link href="/slider">
             <a className="btn btn-outline-success btn-lg mx-3">Go to the upload page.</a>
           </Link>

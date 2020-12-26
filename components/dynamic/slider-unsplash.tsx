@@ -83,7 +83,7 @@ export default function Search() {
         <div className={styles["App-Input"]}>
           <input className="btn btn-sm btn-dark" type="text" onChange={handleChange} value={text}/>
           <button className="btn btn-sm btn-primary" onClick={albumInsert}>Search</button>
-          <label htmlFor="interval" className="text-light my-auto mx-2 bg-dark">Time Interval</label>
+          <label htmlFor="interval" className="text-light my-auto mx-2 bg-dark" id={styles["time-interval"]}>Time Interval</label>
           <input id="interval" className="btn btn-sm btn-dark" style={{width: 60}} type="number" value={second} max="20" onChange={handleSecond} />
         </div>
       }

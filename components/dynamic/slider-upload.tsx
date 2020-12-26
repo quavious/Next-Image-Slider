@@ -88,8 +88,8 @@ export default function Home() {
       {!ready ? 
         <p>The fileReader is being loaded...</p> : 
         <div className={styles["App-Input"]}>
-          <input className="btn btn-sm btn-dark" style={{width: 215}} type="file" accept="image/*" onChange={albumInsert} multiple />
-          <label htmlFor="interval" className="text-light my-auto mx-2 bg-dark">Time Interval</label>
+          <input className="btn btn-sm btn-dark d-flex align-items-center" style={{width: 215}} type="file" accept="image/*" onChange={albumInsert} multiple />
+          <label htmlFor="interval" className="text-light my-auto mx-2 bg-dark" id={styles['time-interval']}>Time Interval</label>
           <input id="interval" className="btn btn-sm btn-dark" style={{width: 60}} type="number" value={second} max="20" onChange={handleSecond} />
         </div>
       }

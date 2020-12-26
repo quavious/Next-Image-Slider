@@ -1,7 +1,18 @@
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from '../../styles/Navbar.module.css'
 
 export default function NavigationBar() {
+    const [show, setShow] = useState(false)
+
+    const handleClick = (e) => {
+        e.preventDefault()
+        if(!show) {
+            setShow(true)
+        } else {
+            setShow(false)
+        }
+    }
     return (
         <nav className={`navbar navbar-expand-lg navbar-dark bg-dark px-4 fixed-top ${styles['navbar-shadow']}`}>
             <Link href="/">
@@ -10,11 +21,11 @@ export default function NavigationBar() {
                 SlideYourImages
             </a>
             </Link>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <button className="navbar-toggler" type="button" data-toggle="collapse" onClick={handleClick} data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
 
-            <div className="collapse navbar-collapse" id="navbarColor02">
+            <div className={`collapse navbar-collapse ${!show ? "show" : ""}`} id="navbarColor02">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
                         <Link href="/">
