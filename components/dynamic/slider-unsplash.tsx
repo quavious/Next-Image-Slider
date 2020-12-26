@@ -28,7 +28,7 @@ export default function Search() {
     e.preventDefault();
     const images = []
     try {
-      const resp = await axios.get(`http://localhost:3000/api/unsplash/${text}`)
+      const resp = await axios.get(`/api/unsplash/${text}`)
       const data = await resp.data.response
       images.push(...await data)
       setAlbum(images)
