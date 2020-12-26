@@ -71,7 +71,8 @@ export default function Search() {
         {album.length > 0 ? album.map((el, idx) => {
           return (
               idx === index ? (
-                  <img className={styles["App-Images"]} alt={`image_${idx}`} key={idx} src={el} onClick={albumRemove}/>
+                  // src={el} alt={`image_${idx}`}
+                  <div className={styles["App-Images"]} key={idx} style={{backgroundImage: `url(${el})`}} onClick={albumRemove}></div>
               ) : 
               <Fragment key={idx}></Fragment>
           )

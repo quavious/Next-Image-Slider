@@ -28,8 +28,14 @@
 
 .App-Images {
   margin: 0;
-  padding: 0;
-  height: 100%;
+  padding: 0 20px;
+  min-height: 100%;
+  height: auto;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* width: 1080px; */
   transition: 1s ease;
   left: 0;
 }

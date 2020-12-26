@@ -79,7 +79,8 @@ export default function Home() {
       <div className={styles["App-Carousel"]}>
         {album.length > 0 ? album.map((el, idx) => {
           return (
-              idx === index ? <img className={styles["App-Images"]} alt={`image_${idx}`} key={idx} src={el} onClick={albumRemove}/> : 
+              // alt={`image_${idx}`} src={el}
+              idx === index ? <div className={styles["App-Images"]} key={idx} style={{backgroundImage: `url(${el})`}} onClick={albumRemove}/> : 
               <Fragment key={idx}></Fragment>
           )
         }) : <h2>No Images</h2>}
