@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-Carousel {
+  width: 100%;
+  height: 480px;
+}
+
+.App-Input {
+  margin: 0px;
+  padding: 4px 4px;
+  display: flex;
+  background-color: black;
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  border-radius: 6px;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.App-Images {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  transition: 1s ease;
+  left: 0;
+}
+
+.App-Image-Grid {
+  margin-top: 30px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, auto));
+  column-gap: 10px;
+  row-gap: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
+.App-Image-List {
+  width: 100px;
+  justify-self: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
