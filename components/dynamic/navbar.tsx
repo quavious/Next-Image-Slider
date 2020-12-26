@@ -25,7 +25,7 @@ export default function NavigationBar() {
                 <span className="navbar-toggler-icon"></span>
             </button>
 
-            <div className={`collapse navbar-collapse ${!show ? "show" : ""}`} id="navbarColor02">
+            <div className={`collapse navbar-collapse ${!show ? "" : "show"}`} id="navbarColor02">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
                         <Link href="/">
