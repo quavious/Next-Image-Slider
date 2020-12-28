@@ -8,12 +8,15 @@ export default function Home() {
     <>
       <div className={styles.container}>
         <h1>Hello World!</h1>
-        <div className="mt-4 d-flex justify-content-around">
+        <div className="mt-4 d-flex flex-column align-items-center">
           <Link href="/slider">
-            <a className="btn btn-outline-success btn-lg mx-3">Go to the upload page.</a>
+            <a className="btn btn-outline-success btn-lg mx-3 my-4">Go to the Upload page.</a>
           </Link>
           <Link href="/slider/unsplash">
-            <a className="btn btn-outline-primary btn-lg mx-3">Go to the search page.</a>
+            <a className="btn btn-outline-primary btn-lg mx-3 my-4">Go to the Search page.</a>
+          </Link>
+          <Link href="/slider/unsplash">
+            <a className="btn btn-outline-danger btn-lg mx-3 my-4">Go to the Korean page.</a>
           </Link>
         </div>
       </div>

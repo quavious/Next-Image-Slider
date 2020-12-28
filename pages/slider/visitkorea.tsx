@@ -28,7 +28,7 @@ export default function Search() {
     e.preventDefault();
     const images = []
     try {
-      const resp = await axios.get(`/api/unsplash/${text}`)
+      const resp = await axios.get(`/api/visitkorea/${text}`)
       const data = await resp.data.response
       images.push(...await data)
       setAlbum(images)
@@ -39,8 +39,8 @@ export default function Search() {
 
   
   const albumRemove = (e) => {
-    const obj = e.target.alt;
-    const index = parseInt(obj.replace("image_", ""), 10);
+    const obj = e.target.id;
+    const index = parseInt(obj.replace("image", ""), 10);
     const newAlbum = album.filter((_, idx) => idx !== index);
     setAlbum(newAlbum);
   };
@@ -91,7 +91,7 @@ export default function Search() {
       <div className={styles["App-Image-Grid"]}>
         {album.length === 0 ? <></> : 
           album.map((el, itr) => 
-            <img className={styles["App-Image-List"]} alt={`image_${itr}`} key={itr} src={el} onClick={albumRemove}/>  
+            <img className={styles["App-Image-List"]} alt={`image_${itr}`} id={`image${itr}`} key={itr} src={el} onClick={albumRemove}/>  
           )
         }
       </div>

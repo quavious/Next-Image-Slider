@@ -44,6 +44,11 @@ export default function NavigationBar() {
                             <a className="nav-link" href="/slider/unsplash">Search</a>
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Link href="/slider/visitkorea">
+                            <a className="nav-link btn btn-outline-danger" style={{border: 'none'}} href="/slider/visitkorea">Korean</a>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </nav>
