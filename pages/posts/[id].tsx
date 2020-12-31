@@ -3,7 +3,7 @@ import {useRouter} from 'next/router'
 import { useEffect, useState } from "react";
 
 export default function ReadPost(props){
-    const username = !props.user.username ? "" : props.user.username
+    const username = !props.user ? "" : props.user.username
     const router = useRouter()
     const [post, setPost] = useState(null)
     const {id} = router.query
