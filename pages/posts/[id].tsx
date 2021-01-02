@@ -5,7 +5,7 @@ import {useRouter} from 'next/router'
 export const getServerSideProps:GetServerSideProps = async(context) => {
     const {query: {id}} = context
     try {
-        const resp = await axios.post(`${process.env.VERCEL_URL}/api/posts/post`, {
+        const resp = await axios.post(`https://next-image-slider.vercel.app/api/posts/post`, {
             id
         })
         const {status} = await resp.data

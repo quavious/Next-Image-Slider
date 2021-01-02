@@ -5,7 +5,7 @@ import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 
 export const getServerSideProps:GetServerSideProps = async(context) => {
-    const resp = await axios.get(`${process.env.VERCEL_URL}/api/posts/all`)
+    const resp = await axios.get(`https://next-image-slider.vercel.app/api/posts/all`)
     const {status, posts} = await resp.data
     if(status === "fail") {
         return {
