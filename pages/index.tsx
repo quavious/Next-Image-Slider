@@ -19,7 +19,7 @@ export default function Home({user}) {
           <Link href="/slider/unsplash">
             <a className="btn btn-outline-danger btn-lg mx-3 my-4">Go to the Korean page.</a>
           </Link>
-          <Link href="/slider/unsplash">
+          <Link href="/posts">
             <a className="btn btn-outline-danger btn-lg mx-3 my-4">Go to the Post page.</a>
           </Link>
         </div>

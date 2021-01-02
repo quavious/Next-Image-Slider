@@ -1,30 +1,36 @@
 import axios from "axios";
+import { GetServerSideProps } from "next";
 import {useRouter} from 'next/router'
-import { useEffect, useState } from "react";
+
+export const getServerSideProps:GetServerSideProps = async(context) => {
+    const {query: {id}} = context
+    try {
+        const resp = await axios.post(`${process.env.VERCEL_URL}/api/posts/post`, {
+            id
+        })
+        const {status} = await resp.data
+        if(status !== "OK"){
+            throw new Error("Server ERROR")
+        }
+        const post = await resp.data
+        return {
+            props : {
+                post: await post
+            }
+        }
+    } catch (err) {
+        console.error(err)
+        context.res.writeHead(301, {
+            "location": "/posts"
+        })
+    }
+}
 
 export default function ReadPost(props){
     const username = !props.user ? "" : props.user.username
+    const post = props.post 
     const router = useRouter()
-    const [post, setPost] = useState(null)
-    const {id} = router.query
-    useEffect(() => {
-        axios.post('/api/posts/post', {
-            id 
-        }).then(resp => resp.data)
-        .then(data => {
-            const {status} = data;
-            if(status !== "OK") {
-                router.push("/posts")
-                return
-            }
-            const {id:postId, title, content, createdAt, username: author} = data
-            setPost({postId, title, content, createdAt, author})
-        })
-        .catch(err => {
-            console.error(err);
-            router.push("/posts");
-        })
-    }, [])
+
     const handleDelete = async (e, id) => {
         e.preventDefault()
         const resp = await axios.post("/api/posts/delete", {
@@ -47,12 +53,12 @@ export default function ReadPost(props){
     return (
         <div className="container">
             <h1>{post.title}</h1>
-            <h4 className="font-weight-light">written by {post.author}</h4>
+            <h4 className="font-weight-light">written by {post.username}</h4>
             <p className="font-weight-normal">{post.content}</p>
             <h4 className="font-weight-light">{post.createdAt.toString()}</h4>
-            {username === post.author ?
+            {username === post.username ?
             <div>
-                <a className="btn btn-outline-danger" onClick={(e) => handleDelete(e, id)}>Delete this post</a>
+                <a className="btn btn-outline-danger" onClick={(e) => handleDelete(e, post.id)}>Delete this post</a>
                 {/* <a className="btn btn-outline-warning">Edit this post</a> */}
             </div> 
             :

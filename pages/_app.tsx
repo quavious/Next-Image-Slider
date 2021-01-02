@@ -1,17 +1,18 @@
 import '../styles/globals.css'
 import Head from 'next/head'
 import NavigationBar from '../components/navbar'
-import {CookiesProvider} from 'react-cookie'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
+import {UserInfo} from '../interfaces/user/auth'
+
 function MyApp({ Component, pageProps }) {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState<UserInfo>(null)
   useEffect(() => {
     axios.post('/api/users/auth')
     .then(resp => resp.data)
     .then(async (data) => {
-        if(await data.status === "fail") {
+        if(await data.status !== "OK") {
             return;
         }
         const {username, email} = await data
@@ -33,7 +34,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossOrigin="anonymous"></link>
       </Head>
-      <NavigationBar />
+      <NavigationBar {...user} />
       <Component {...pageProps} user={user} />
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossOrigin="anonymous"></script>
     </>

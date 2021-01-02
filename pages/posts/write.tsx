@@ -60,11 +60,11 @@ export default function WritePost(){
             <h1>Write Post</h1>
             <form onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="title">Email Address</label>
+                <label htmlFor="title">Title</label>
                 <input className="form-control" type="text" id="title" name="title" value={title} placeholder="Post Title" onChange={handleChange}/>
             </div>
             <div className="form-group my-2">
-                <label htmlFor="content">Password</label>
+                <label htmlFor="content">Content</label>
                 <textarea className="form-control" id="content" name="content" value={content} placeholder="Password" onChange={handleChange}/>
             </div>
             <button type="submit" className="btn btn-primary mr-4">Submit</button>

@@ -4,31 +4,26 @@ import Link from 'next/link'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 
-export default function Posts(){
-    const [logged, setLogged] = useState(false)
-    const [posts, setPosts] = useState<any[]>([])
-    useEffect(() => {
-        axios.post("/api/users/auth", {})
-        .then(resp => resp.data)
-        .then(async (data) => {
-            const flag = await data.status
-            if(flag === "OK") {
-                setLogged(true)
+export const getServerSideProps:GetServerSideProps = async(context) => {
+    const resp = await axios.get(`${process.env.VERCEL_URL}/api/posts/all`)
+    const {status, posts} = await resp.data
+    if(status === "fail") {
+        return {
+            props: {
+                posts: [] as any[]
             }
-        })
-        .catch(err => {
-            console.error(err)
-        })
-    }, [])
-    useEffect(() => {
-        axios.get("/api/posts/all")
-        .then(resp => resp.data)
-        .then(async (data) => {
-            if(data.status === "fail") return;
-            setPosts(await data.posts)
-        })
-        .catch(err => console.error(err))
-    }, [logged])
+        }
+    }
+    return {
+        props: {
+            posts : posts,
+        }
+    }
+}
+
+export default function Posts(props){
+    const {posts, user} = props;
+    const logged = !user ? false: user.username 
 
     return (
         <div className="container">
