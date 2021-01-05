@@ -2,20 +2,38 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import {useRouter} from 'next/router'
 
+import dbClient from '../../db/db'
+
 export const getServerSideProps:GetServerSideProps = async(context) => {
     const {query: {id}} = context
     try {
-        const resp = await axios.post(`https://next-image-slider.vercel.app/api/posts/post`, {
-            id
-        })
-        const {status} = await resp.data
-        if(status !== "OK"){
-            throw new Error("Server ERROR")
+        if(typeof id !== "string"){
+            throw new Error("Parameter is invalid.")
         }
-        const post = await resp.data
+
+        const client = dbClient()
+        const post = await client.post.findUnique({
+            where: {
+                id: parseInt(id, 10)
+            }
+        })
+        const {id: pid, title, content, createdAt, authorId} = post
+        const user = await client.user.findUnique({
+            where: {
+                id: authorId
+            }
+        })
+        const {name} = user
         return {
-            props : {
-                post: await post
+            props: {
+                post: {
+                    status: true,
+                    id: pid,
+                    title,
+                    content,
+                    createdAt: createdAt.toISOString(),
+                    username: name
+                }   
             }
         }
     } catch (err) {
@@ -28,7 +46,7 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
 
 export default function ReadPost(props){
     const username = !props.user ? "" : props.user.username
-    const post = props.post 
+    const {post} = props;
     const router = useRouter()
 
     const handleDelete = async (e, id) => {
@@ -43,7 +61,7 @@ export default function ReadPost(props){
         }
         router.push("/posts")
     }
-    if(!post){
+    if(!post || !post.status){
         return (
             <div className="container">
                 <h1 className="text-center">Loading Post...</h1>

@@ -4,15 +4,22 @@ import Link from 'next/link'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 
+import dbClient from '../../db/db'
+
 export const getServerSideProps:GetServerSideProps = async(context) => {
-    const resp = await axios.get(`https://next-image-slider.vercel.app/api/posts/all`)
-    const {status, posts} = await resp.data
-    if(status === "fail") {
-        return {
-            props: {
-                posts: [] as any[]
+    const posts = []
+    const client = dbClient()
+    const resp = await client.post.findMany()
+    for(let i = resp.length - 1; i >= 0; i--) {
+        const {id: pid, title, content, createdAt, authorId} = resp[i]
+        const {name} = await client.user.findUnique({
+            where: {
+                id: authorId
             }
-        }
+        })
+        posts.push({
+            id: pid, name, title, content, createdAt: createdAt.toISOString()
+        })
     }
     return {
         props: {
@@ -30,8 +37,8 @@ export default function Posts(props){
             <h1>Posts Page</h1>
             {posts.map(post => {
                 return (
-                <div key={post.postId}>
-                    <Link href={`/posts/${post.postId}`}>
+                <div key={post.id}>
+                    <Link href={`/posts/${post.id}`}>
                     <h3>{post.title}</h3>
                     </Link>
                     <h5>{post.content.slice(0, 30)}</h5>
