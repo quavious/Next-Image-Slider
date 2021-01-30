@@ -7,20 +7,23 @@ import { useRouter } from 'next/router'
 import dbClient from '../../db/db'
 
 export const getServerSideProps:GetServerSideProps = async(context) => {
-    const posts = []
     const client = dbClient()
     const resp = await client.post.findMany()
-    for(let i = resp.length - 1; i >= 0; i--) {
-        const {id: pid, title, content, createdAt, authorId} = resp[i]
+    const posts = await Promise.all(resp.map(async (p) => {
+        const {id: pid, title, content, createdAt, authorId} = p
         const {name} = await client.user.findUnique({
             where: {
                 id: authorId
             }
         })
-        posts.push({
-            id: pid, name, title, content, createdAt: createdAt.toISOString()
-        })
-    }
+        return {
+            id: pid,
+            title,
+            content,
+            createdAt: new Date(createdAt).toLocaleString(),
+            name
+        }
+    }))
     return {
         props: {
             posts : posts,

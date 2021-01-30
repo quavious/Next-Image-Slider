@@ -11,23 +11,21 @@ function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState<UserInfo>(null)
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    (async () => {
-      axios.post('/api/users/auth')
-      .then(resp => resp.data)
-      .then(async (data) => {
-          if(await data.status !== "OK") {
-              return;
-          }
-          const {username, email} = await data
-          setUser({
-            username: await username,
-            email: await email,
-          })
-      })
-      .catch(err => {
-          console.error(err)
-      })
-    })()
+    axios.post('/api/users/auth')
+    .then(resp => resp.data)
+    .then(async (data) => {
+        if(await data.status !== "OK") {
+            return;
+        }
+        const {username, email} = await data
+        setUser({
+          username: await username,
+          email: await email,
+        })
+    })
+    .catch(err => {
+        console.error(err)
+    });
   }, [])
   useEffect(() => {
     const start = () => {
